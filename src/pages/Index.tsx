@@ -6,16 +6,20 @@ import ContentResults from "@/components/ContentResults";
 import LoadingDisplay from "@/components/LoadingDisplay";
 import FeatureBanner from "@/components/FeatureBanner";
 import UsageLimitDisplay from "@/components/UsageLimitDisplay";
+import TrendingHashtags from "@/components/TrendingHashtags";
 import { generateContent, checkUsageLimit } from "@/services/api";
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
+import { Sparkles } from "lucide-react";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [content, setContent] = useState<GeneratedContent | null>(null);
   const [lastGenre, setLastGenre] = useState<Genre>("Tech");
   const [lastPrompt, setLastPrompt] = useState("");
+  const [selectedHashtag, setSelectedHashtag] = useState("");
   const [withinLimit, setWithinLimit] = useState(true);
+  const [showForm, setShowForm] = useState(true);
   const { user } = useAuth();
 
   const checkLimit = async () => {
@@ -40,6 +44,7 @@ const Index = () => {
   }, [user]);
 
   const handleGenerateContent = async (genre: Genre, prompt: string, platform: Platform, wordCount: WordCount) => {
+    setShowForm(false);
     // Check limit again before generating
     if (user) {
       const isWithinLimit = await checkUsageLimit();
@@ -85,20 +90,21 @@ const Index = () => {
   };
 
   return (
-    <div className="container py-8 space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="col-span-1 md:col-span-3">
-          <InputForm 
-            onSubmit={handleGenerateContent} 
-            isLoading={isLoading} 
-            disabled={!withinLimit}
-          />
+    <div className="container py-4 space-y-8">
+      <div className="grid grid-cols-1 gap-8">
+        {/* <TrendingHashtags onHashtagSelect={(hashtag) => {
+          setSelectedHashtag(hashtag);
+          handleGenerateContent("Tech", hashtag, "Instagram Reels", "30");
+        }} /> */}
+        <div>
+          {showForm && (
+            <InputForm 
+              onSubmit={handleGenerateContent} 
+              isLoading={isLoading} 
+              disabled={!withinLimit}
+            />
+          )}
         </div>
-        {/* {user && (
-          <div className="col-span-1">
-            <UsageLimitDisplay onRefresh={checkLimit} />
-          </div>
-        )} */}
       </div>
       
       {isLoading && <LoadingDisplay />}
@@ -111,7 +117,20 @@ const Index = () => {
         />
       )}
       
-      {!isLoading && !content && <FeatureBanner />}
+      {!isLoading && showForm && <FeatureBanner />}
+
+      {
+        !showForm && (
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => setShowForm(true)}
+            className="text-sm font-semibold text-gray-500 flex items-center"
+          >
+            Generate Again <Sparkles className="ml-2 h-4 w-4" />
+          </button>
+        </div>
+      )
+      }
     </div>
   );
 };

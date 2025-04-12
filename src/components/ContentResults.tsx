@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { GeneratedContent, Genre } from "@/types";
 import { saveToArchive } from "@/services/api";
+import { generateVoiceover } from "@/services/tts";
 import { toast } from "@/components/ui/use-toast";
 import { Copy, Download, Save, BookmarkPlus, Share2, Play, Pause, Volume2 } from "lucide-react";
 
@@ -22,8 +23,11 @@ interface ContentResultsProps {
 }
 
 const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
-  const [activeTab, setActiveTab] = useState("idea");
+  const [activeTab, setActiveTab] = useState("script");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [audio] = useState(new Audio());
 
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -88,13 +92,65 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
     });
   };
 
-  const toggleAudioPlayback = () => {
-    // This would be implemented with real audio playback
-    setIsPlaying(!isPlaying);
-    toast({
-      title: isPlaying ? "Paused" : "Playing",
-      description: isPlaying ? "Audio paused" : "Playing voiceover audio",
-    });
+  const toggleAudioPlayback = async () => {
+    if (!audioUrl && !isGenerating) {
+      try {
+        setIsGenerating(true);
+        const voiceoverBlob = await generateVoiceover(content.script || "");
+        const url = URL.createObjectURL(voiceoverBlob);
+        setAudioUrl(url);
+        audio.src = url;
+        audio.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.error("Error playing audio:", error);
+      } finally {
+        setIsGenerating(false);
+      }
+    } else if (audioUrl) {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const downloadVoiceover = async () => {
+    if (!audioUrl && !isGenerating) {
+      try {
+        setIsGenerating(true);
+        const voiceoverBlob = await generateVoiceover(content.script || "");
+        const url = URL.createObjectURL(voiceoverBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `trendspark-voiceover-${Date.now()}.mp3`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        toast({
+          title: "Success",
+          description: "Voiceover downloaded successfully",
+        });
+      } catch (error) {
+        console.error("Error downloading voiceover:", error);
+      } finally {
+        setIsGenerating(false);
+      }
+    } else if (audioUrl) {
+      const a = document.createElement("a");
+      a.href = audioUrl;
+      a.download = `trendspark-voiceover-${Date.now()}.mp3`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      toast({
+        title: "Success",
+        description: "Voiceover downloaded successfully",
+      });
+    }
   };
 
   return (
@@ -105,10 +161,9 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
           <CardDescription>{content.contentIdea?.description}</CardDescription>
         </CardHeader>
         
-        <Tabs defaultValue="idea" value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs defaultValue="script" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="px-6">
-            <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-1">
-              <TabsTrigger value="idea">Idea</TabsTrigger>
+            <TabsList className="grid grid-cols-3 md:grid-cols-5 gap-1">
               <TabsTrigger value="script">Script</TabsTrigger>
               <TabsTrigger value="storyboard">Storyboard</TabsTrigger>
               <TabsTrigger value="hashtags">Hashtags</TabsTrigger>
@@ -118,46 +173,55 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
           </div>
           
           <CardContent className="pt-6">
-            <TabsContent value="idea" className="mt-0 space-y-4">
-              <div className="p-4 bg-secondary/50 rounded-lg">
-                <h3 className="font-medium text-lg mb-2">Attention-Grabbing Hook</h3>
-                <p className="italic text-muted-foreground">{content.hook}</p>
-              </div>
-              
-              <Button 
-                variant="outline" 
-                className="w-full" 
-                onClick={() => handleCopy(`${content.contentIdea?.title}\n\n${content.contentIdea?.description}\n\nHook: ${content.hook}`, "Content idea")}
-              >
-                <Copy className="mr-2 h-4 w-4" />
-                Copy Idea
-              </Button>
-            </TabsContent>
-            
             <TabsContent value="script" className="mt-0 space-y-4">
               <div className="space-y-4">
+                {/* <div className="p-4 bg-secondary/50 rounded-lg">
+                  <h3 className="font-medium text-lg mb-2">Attention-Grabbing Hook</h3>
+                  <p className="italic text-muted-foreground">{content.hook}</p>
+                  </div> */}
                 <div className="p-4 bg-secondary/50 rounded-lg">
+                  <h3 className="font-medium text-lg mb-2">AI Generated Script 🔥</h3>
                   <p className="whitespace-pre-line">{content.script}</p>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <Button
-                    variant="outline"
-                    className="flex-1 flex items-center justify-center gap-2"
-                    onClick={toggleAudioPlayback}
-                  >
-                    {isPlaying ? (
-                      <>
-                        <Pause className="h-4 w-4" />
-                        Pause Voiceover
-                      </>
-                    ) : (
-                      <>
-                        <Play className="h-4 w-4" />
-                        Play Voiceover
-                      </>
-                    )}
-                  </Button>
+                  <div className="flex flex-1 gap-2">
+                    <Button
+                      variant="outline"
+                      className="flex-1 flex items-center justify-center gap-2 bg-trendspark-green text-white hover:text-white hover:bg-trendspark-green animate-pulse"
+                      onClick={toggleAudioPlayback}
+                      disabled={isGenerating}
+                    >
+                      {isGenerating ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent" />
+                          Generating...
+                        </>
+                      ) : isPlaying ? (
+                        <>
+                          <Pause className="h-4 w-4" />
+                          Pause Voiceover
+                        </>
+                      ) : (
+                        <>
+                          <Play className="h-4 w-4" />
+                          {audioUrl ? "Play Voiceover" : "Generate AI Voiceover"}
+                        </>
+                      )}
+                    </Button>
+                    {
+                      audioUrl &&
+                      <Button
+                        variant="outline"
+                        className="flex items-center justify-center gap-2"
+                        onClick={downloadVoiceover}
+                        disabled={isGenerating}
+                      >
+                        <Download className="h-4 w-4" />
+                        {isGenerating ? "Generating..." : "Download Voiceover"}
+                      </Button>
+                    }
+                  </div>
                   <Button
                     variant="outline"
                     className="flex-1"
@@ -255,10 +319,10 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
                     </div>
                   </div>
                   
-                  <div className="space-y-1">
+                  {/* <div className="space-y-1">
                     <h3 className="font-medium">Suggested Caption</h3>
                     <p className="text-sm">{content.postingStrategy?.caption}</p>
-                  </div>
+                  </div> */}
                 </div>
                 
                 <Button 
@@ -285,10 +349,6 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
               Download
             </Button>
           </div>
-          <Button variant="ghost" onClick={() => handleCopy(window.location.href, "Link")}>
-            <Share2 className="mr-2 h-4 w-4" />
-            Share
-          </Button>
         </CardFooter>
       </Card>
     </div>

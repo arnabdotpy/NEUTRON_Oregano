@@ -6,7 +6,7 @@ import { Json } from "@/integrations/supabase/types";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const API_URL = import.meta.env.VITE_API_URL;
 
-const DAILY_USAGE_LIMIT = 20;
+const DAILY_USAGE_LIMIT = 200;
 
 const mockMusicRecommendations: Record<Genre, MusicRecommendation[]> = {
   "Tech": [
@@ -169,7 +169,8 @@ export const generateContent = async (
       "storyboard": [
         {"id": 1, "title": "Hook", "description": "What to say in this scene", "visualTip": "How to film or what to show"},
         {"id": 2, "title": "Main Point", "description": "What to say in this scene", "visualTip": "How to film or what to show"},
-        {"id": 3, "title": "Call to Action", "description": "What to say in this scene", "visualTip": "How to film or what to show"}
+        {"id": 3, "title": "Call to Action", "description": "What to say in this scene", "visualTip": "How to film or what to show"},
+        add more needed scenes
       ],
       "postingStrategy": {
         "bestTime": "Best time of day to post",

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -55,13 +56,13 @@ const Navbar = () => {
       authRequired: true,
     },
     {
-      name: "Analytics",
+      name: "Usage",
       path: "/analytics",
       icon: <BarChart3 className="h-4 w-4 mr-2" />,
       authRequired: true,
     },
     {
-      name: "Chat Consultant",
+      name: "AI Chat Consultant",
       path: "/chat",
       icon: <MessageCircle className="h-4 w-4 mr-2" />,
       authRequired: true,
@@ -117,6 +118,7 @@ const Navbar = () => {
 
         {/* Auth Buttons or User Menu */}
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

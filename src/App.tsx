@@ -16,6 +16,7 @@ import InstagramInsights from "./pages/InstagramInsights";
 import NotFound from "./pages/NotFound";
 import RequireAuth from "./components/RequireAuth";
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,10 +30,11 @@ const queryClient = new QueryClient({
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+      <ThemeProvider>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">
@@ -71,7 +73,8 @@ const App = () => (
             </main>
           </div>
         </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
