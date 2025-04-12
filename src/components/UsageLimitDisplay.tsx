@@ -40,7 +40,7 @@ const UsageLimitDisplay = ({ onRefresh }: UsageLimitDisplayProps) => {
   if (!user) return null;
 
   return (
-    <Card>
+    <Card className="w-[100%]">
       <CardHeader className="pb-2">
         <CardTitle className="text-md flex items-center gap-2">
           <Clock className="h-4 w-4" />
@@ -48,7 +48,7 @@ const UsageLimitDisplay = ({ onRefresh }: UsageLimitDisplayProps) => {
         </CardTitle>
         <CardDescription>
           {remaining > 0 
-            ? `You have ${remaining} generations remaining today` 
+            ? `${remaining} generations left` 
             : "You've reached your daily limit"}
         </CardDescription>
       </CardHeader>

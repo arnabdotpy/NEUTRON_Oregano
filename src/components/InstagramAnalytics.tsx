@@ -125,18 +125,20 @@ const InstagramAnalytics = () => {
               <div>
                 <h4 className="text-sm font-medium mb-2">Age Groups</h4>
                 <div className="space-y-2">
-                  {Object.entries(analytics.audience_demographics.age_groups).map(([age, percentage]) => (
-                    <div key={age} className="flex justify-between items-center">
-                      <span>{age}</span>
-                      <div className="w-2/3 bg-secondary rounded-full h-2.5 overflow-hidden">
-                        <div 
-                          className="bg-primary h-2.5 rounded-full" 
-                          style={{ width: percentage }}
-                        ></div>
+                  {Object.entries(analytics.audience_demographics.age_groups).map(([age, percentage]) => {
+                    return (
+                      <div key={age} className="flex justify-between items-center">
+                        <span>{age}</span>
+                        <div className="w-2/3 bg-secondary rounded-full h-2.5 overflow-hidden">
+                          <div
+                            className="bg-primary h-2.5 rounded-full"
+                            style={{ width: percentage }}
+                          ></div>
+                        </div>
+                        <span className="text-sm">{percentage}</span>
                       </div>
-                      <span className="text-sm">{percentage}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
               <div>

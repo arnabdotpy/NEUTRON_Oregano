@@ -6,7 +6,7 @@ import { Json } from "@/integrations/supabase/types";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const API_URL = import.meta.env.VITE_API_URL;
 
-const DAILY_USAGE_LIMIT = 10;
+const DAILY_USAGE_LIMIT = 20;
 
 const mockMusicRecommendations: Record<Genre, MusicRecommendation[]> = {
   "Tech": [
@@ -140,7 +140,8 @@ export const getUsageStats = async (): Promise<{ used: number, limit: number }> 
 export const generateContent = async (
   genre: Genre,
   prompt: string,
-  platform: Platform
+  platform: Platform,
+  wordCount: WordCount
 ): Promise<GeneratedContent> => {
   try {
     // Check usage limit first
@@ -163,7 +164,7 @@ export const generateContent = async (
         "description": "Brief description of the viral content idea"
       },
       "hook": "An attention-grabbing first line for the video",
-      "script": "A 30-second script for ${platform} in a conversational creator tone",
+      "script": "A script with approximately ${parseInt(wordCount) >= 300 ? `${Math.round(parseInt(wordCount) * 2.5)} words` : `${Math.round(parseInt(wordCount) * 2.5)} words`} for ${platform} in a conversational creator tone",
       "hashtags": ["5-8 trending hashtags as an array of strings"],
       "storyboard": [
         {"id": 1, "title": "Hook", "description": "What to say in this scene", "visualTip": "How to film or what to show"},

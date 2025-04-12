@@ -18,11 +18,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Genre, Platform } from "@/types";
+import { Genre, Platform, WordCount } from "@/types";
 import { Sparkles } from "lucide-react";
 
 interface InputFormProps {
-  onSubmit: (genre: Genre, prompt: string, platform: Platform) => void;
+  onSubmit: (genre: Genre, prompt: string, platform: Platform, wordCount: WordCount) => void;
   isLoading: boolean;
 }
 
@@ -40,19 +40,28 @@ const genreOptions: Genre[] = [
 ];
 
 const platformOptions: Platform[] = [
-  "TikTok",
   "Instagram Reels",
   "YouTube Shorts",
+  "TikTok",
+];
+
+const wordCountOptions: WordCount[] = [
+  "30",  // ~75 words for 30s (150 words/min)
+  "60",  // ~150 words for 1min (150 words/min)
+  "90",  // ~225 words for 1.5min (150 words/min)
+  "300", // ~750 words for 5min (150 words/min)
+  "600", // ~1500 words for 10min (150 words/min)
 ];
 
 const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
   const [genre, setGenre] = useState<Genre>("Tech");
   const [prompt, setPrompt] = useState("");
-  const [platform, setPlatform] = useState<Platform>("TikTok");
+  const [platform, setPlatform] = useState<Platform>("Instagram Reels");
+  const [wordCount, setWordCount] = useState<WordCount>("30");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(genre, prompt, platform);
+    onSubmit(genre, prompt, platform, wordCount);
   };
 
   return (
@@ -83,6 +92,29 @@ const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                 {genreOptions.map((option) => (
                   <SelectItem key={option} value={option}>
                     {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="wordCount" className="text-sm font-medium">
+              Script Length
+            </label>
+            <Select
+              value={wordCount}
+              onValueChange={(value) => setWordCount(value as WordCount)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select script length" />
+              </SelectTrigger>
+              <SelectContent>
+                {wordCountOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {parseInt(option) >= 300 
+                      ? `${parseInt(option) / 60} min (~${Math.round(parseInt(option) * 2.5)} words)` 
+                      : `${option} sec (~${Math.round(parseInt(option) * 2.5)} words)`}
                   </SelectItem>
                 ))}
               </SelectContent>

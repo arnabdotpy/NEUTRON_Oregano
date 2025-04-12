@@ -39,7 +39,7 @@ const Index = () => {
     }
   }, [user]);
 
-  const handleGenerateContent = async (genre: Genre, prompt: string, platform: Platform) => {
+  const handleGenerateContent = async (genre: Genre, prompt: string, platform: Platform, wordCount: WordCount) => {
     // Check limit again before generating
     if (user) {
       const isWithinLimit = await checkUsageLimit();
@@ -59,7 +59,7 @@ const Index = () => {
     setLastPrompt(prompt);
 
     try {
-      const generatedContent = await generateContent(genre, prompt, platform);
+      const generatedContent = await generateContent(genre, prompt, platform, wordCount);
       setContent(generatedContent);
       // Refresh limit after successful generation
       checkLimit();
@@ -86,7 +86,7 @@ const Index = () => {
 
   return (
     <div className="container py-8 space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="col-span-1 md:col-span-3">
           <InputForm 
             onSubmit={handleGenerateContent} 
@@ -94,11 +94,11 @@ const Index = () => {
             disabled={!withinLimit}
           />
         </div>
-        {user && (
+        {/* {user && (
           <div className="col-span-1">
             <UsageLimitDisplay onRefresh={checkLimit} />
           </div>
-        )}
+        )} */}
       </div>
       
       {isLoading && <LoadingDisplay />}

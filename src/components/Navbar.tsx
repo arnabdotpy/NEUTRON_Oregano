@@ -133,7 +133,7 @@ const Navbar = () => {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuContent align="end" className="w-64">
                 <DropdownMenuLabel>
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">{user.email}</p>
@@ -164,6 +164,10 @@ const Navbar = () => {
                   <span>Instagram Insights</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <div className="m-1">
+                  <UsageLimitDisplay />
+                </div>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="text-destructive"
                   onClick={handleSignOut}
@@ -171,6 +175,7 @@ const Navbar = () => {
                   <LogOut className="h-4 w-4 mr-2" />
                   <span>Sign out</span>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
@@ -209,11 +214,11 @@ const Navbar = () => {
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col space-y-4">
-                {user && (
+                {/* {user && (
                   <div className="mb-4">
                     <UsageLimitDisplay />
                   </div>
-                )}
+                )} */}
                 
                 {filteredLinks.map((link) => (
                   <Button

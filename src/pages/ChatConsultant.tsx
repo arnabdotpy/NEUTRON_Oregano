@@ -10,12 +10,6 @@ const ChatConsultant = () => {
   useEffect(() => {
     // Track page visit
     trackAnalytics('visit_chat_consultant');
-    
-    // Welcome toast
-    toast({
-      title: "Welcome to TrendSpark Chat",
-      description: "Ask anything about social media content creation and strategy.",
-    });
   }, [toast]);
 
   return (

@@ -10,12 +10,6 @@ const InstagramInsights = () => {
   useEffect(() => {
     // Track page visit
     trackAnalytics('visit_instagram_insights');
-    
-    // Welcome toast
-    toast({
-      title: "Instagram Insights",
-      description: "Analyze your Instagram profile and get AI-powered recommendations.",
-    });
   }, [toast]);
 
   return (

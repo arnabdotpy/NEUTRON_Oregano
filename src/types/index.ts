@@ -23,6 +23,8 @@ export interface MusicRecommendation {
   platform: Platform;
 }
 
+export type WordCount = "30" | "60" | "90" | "300" | "600";
+
 export interface GeneratedContent {
   contentIdea: ContentIdea | null;
   hook: string | null;
