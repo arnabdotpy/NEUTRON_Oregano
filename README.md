@@ -4,7 +4,7 @@ TrendSpark was created to empower content creators with AI-driven insights and t
 
 ## What You Get
 
--Viral content ideas tailored to your niche
+- Viral content ideas tailored to your niche
 - Ready-to-use short-form video scripts
 - Attention-grabbing hooks and intros
 - Trending hashtag recommendations
