@@ -36,14 +36,14 @@ const Auth = () => {
         <div className="flex items-center gap-2">
           <Sparkles className="h-8 w-8 text-trendspark-blue" />
           <span className="text-3xl font-bold bg-gradient-to-r from-trendspark-blue to-trendspark-blue bg-clip-text text-transparent">
-            TrendSpark
+            Fusion
           </span>
         </div>
       </div>
 
       <Card className="border-2 border-gray-100 shadow-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Welcome to TrendSpark</CardTitle>
+          <CardTitle className="text-2xl">Welcome to Fusion</CardTitle>
           <CardDescription>
             Sign in to access your viral content ideas and analytics
           </CardDescription>

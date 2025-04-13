@@ -50,7 +50,7 @@ const Navbar = () => {
       authRequired: true,
     },
     {
-      name: "Saved",
+      name: "History",
       path: "/history",
       icon: <History className="h-4 w-4 mr-2" />,
       authRequired: true,
@@ -96,7 +96,7 @@ const Navbar = () => {
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
             <span className="font-bold text-xl hidden md:inline-block">
-              TrendSpark
+              Fusion
             </span>
           </Link>
         </div>

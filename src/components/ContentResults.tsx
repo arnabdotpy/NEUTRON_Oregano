@@ -43,7 +43,7 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
 
   const handleDownload = () => {
     const contentText = `
-    # TrendSpark Content - ${new Date().toLocaleDateString()}
+    # Fusion Content - ${new Date().toLocaleDateString()}
     
     ## Content Idea
     ${content.contentIdea?.title}
@@ -73,7 +73,7 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
     Visual: ${scene.visualTip}
     `).join("\n")}
     
-    Generated with TrendSpark
+    Generated with Fusion
     `;
 
     const blob = new Blob([contentText], { type: "text/plain" });
@@ -319,10 +319,10 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
                     </div>
                   </div>
                   
-                  {/* <div className="space-y-1">
+                  <div className="space-y-1">
                     <h3 className="font-medium">Suggested Caption</h3>
                     <p className="text-sm">{content.postingStrategy?.caption}</p>
-                  </div> */}
+                  </div>
                 </div>
                 
                 <Button 
@@ -340,10 +340,10 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
         
         <CardFooter className="flex flex-wrap gap-2 justify-between">
           <div className="flex gap-2">
-            <Button variant="default" className="bg-trendspark-blue hover:bg-trendspark-blue/90" onClick={handleSave}>
+            {/* <Button variant="default" className="bg-trendspark-blue hover:bg-trendspark-blue/90" onClick={handleSave}>
               <BookmarkPlus className="mr-2 h-4 w-4" />
               Save
-            </Button>
+            </Button> */}
             <Button variant="outline" onClick={handleDownload}>
               <Download className="mr-2 h-4 w-4" />
               Download

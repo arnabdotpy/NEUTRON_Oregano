@@ -160,7 +160,7 @@ const Landing = () => {
               Ready to Go Viral?
             </h2>
             <p className="text-muted-foreground max-w-[600px]">
-              Join thousands of content creators using TrendSpark to generate
+              Join thousands of content creators using Fusion to generate
               engaging content ideas that capture audience attention.
             </p>
             <Button

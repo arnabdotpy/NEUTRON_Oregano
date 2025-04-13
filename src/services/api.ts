@@ -6,7 +6,7 @@ import { Json } from "@/integrations/supabase/types";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const API_URL = import.meta.env.VITE_API_URL;
 
-const DAILY_USAGE_LIMIT = 200;
+const DAILY_USAGE_LIMIT = 30;
 
 const mockMusicRecommendations: Record<Genre, MusicRecommendation[]> = {
   "Tech": [
@@ -151,7 +151,7 @@ export const generateContent = async (
     }
 
     const userPrompt = `
-    You are TrendSpark, an AI content generator for social media creators.
+    You are Fusion, an AI content generator for social media creators.
     
     Generate trending social media content for the genre: ${genre} and platform: ${platform}.
     
@@ -227,6 +227,7 @@ export const generateContent = async (
 
     // Track content generation analytics for authenticated users
     trackAnalytics('generate_content', genre, platform, { promptLength: prompt.length });
+    saveToArchive(generatedContent, genre, prompt);
 
     return generatedContent;
   } catch (error) {
@@ -410,7 +411,7 @@ export const sendChatMessage = async (message: string): Promise<string> => {
     const { data: { user } } = await supabase.auth.getUser();
     
     const userPrompt = `
-    You are TrendSpark Assistant, an AI social media consultant.
+    You are Fusion Assistant, an AI social media consultant.
     
     User message: "${message}"
     
@@ -506,7 +507,7 @@ export const analyzeInstagramProfile = async (username: string): Promise<string>
     const analytics = await getInstagramAnalytics(username);
     
     const promptForAI = `
-    You are TrendSpark's Instagram Analyst, an AI that provides actionable insights for Instagram creators.
+    You are Fusion's Instagram Analyst, an AI that provides actionable insights for Instagram creators.
     
     Analyze this Instagram profile data and provide strategic recommendations:
     

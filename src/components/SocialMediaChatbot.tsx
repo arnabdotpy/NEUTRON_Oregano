@@ -23,7 +23,7 @@ const SocialMediaChatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
-      content: "Hi there! I'm your TrendSpark social media assistant. Ask me anything about content creation, social media strategy, or how to optimize your online presence!",
+      content: "Hi there! I'm your Fusion social media assistant. Ask me anything about content creation, social media strategy, or how to optimize your online presence!",
       sender: "assistant",
       timestamp: new Date(),
     },
@@ -120,7 +120,7 @@ const SocialMediaChatbot = () => {
             <AvatarFallback><Bot className="h-4 w-4" /></AvatarFallback>
           </Avatar>
           <div>
-            <CardTitle className="text-xl">TrendSpark Assistant</CardTitle>
+            <CardTitle className="text-xl">Fusion Assistant</CardTitle>
             <CardDescription>Your social media consultant</CardDescription>
           </div>
         </div>

@@ -8,7 +8,7 @@ const AboutSection = () => {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4 flex items-center justify-center">
           <Sparkles className="h-7 w-7 text-trendspark-purple mr-2" />
-          About TrendSpark
+          About Fusion
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           AI-powered content creation studio for social media creators
@@ -25,7 +25,7 @@ const AboutSection = () => {
           </CardHeader>
           <CardContent>
             <p>
-              TrendSpark was created to empower content creators with AI-driven insights and tools. 
+              Fusion was created to empower content creators with AI-driven insights and tools. 
               We believe that everyone has the potential to create viral, engaging content—sometimes 
               you just need that creative spark to get started. Our platform combines cutting-edge AI 
               with content strategy to help creators of all sizes stand out in today's crowded social media landscape.
@@ -37,12 +37,12 @@ const AboutSection = () => {
           <CardHeader>
             <CardTitle className="flex items-center">
               <Zap className="h-5 w-5 text-trendspark-yellow mr-2" />
-              How TrendSpark Works
+              How Fusion Works
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              TrendSpark uses advanced AI from Gemini to analyze current trends across social media platforms
+              Fusion uses advanced AI from Gemini to analyze current trends across social media platforms
               and generate content ideas tailored to your genre. Simply select your content niche, add an optional
               prompt for more specific ideas, and our AI engine will create a complete content package for you.
             </p>
@@ -90,7 +90,7 @@ const AboutSection = () => {
           </CardHeader>
           <CardContent>
             <p>
-              TrendSpark is built using a modern stack including React, Tailwind CSS, and Google's 
+              Fusion is built using a modern stack including React, Tailwind CSS, and Google's 
               Gemini API. We've designed it to be fast, responsive, and user-friendly, with a focus 
               on providing immediate value to creators. Our content generation algorithms are 
               continuously learning from the latest trends to ensure you always receive fresh, 
