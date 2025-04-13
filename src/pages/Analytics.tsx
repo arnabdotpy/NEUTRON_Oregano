@@ -102,7 +102,7 @@ const Analytics = () => {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-trendspark-purple" />
+                <Calendar className="h-5 w-5 text-trendspark-blue" />
                 Content Creation Activity
               </CardTitle>
               <CardDescription>Your content generation over time</CardDescription>

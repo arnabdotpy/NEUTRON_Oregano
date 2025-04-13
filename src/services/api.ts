@@ -1,4 +1,4 @@
-import { Genre, Platform, GeneratedContent, ArchivedContent, MusicRecommendation } from "@/types";
+import { Genre, Platform, GeneratedContent, ArchivedContent, MusicRecommendation, WordCount } from "@/types";
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Json } from "@/integrations/supabase/types";

@@ -266,7 +266,7 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
                   {content.hashtags?.map((tag, index) => (
                     <div 
                       key={index} 
-                      className="bg-trendspark-purple/10 text-trendspark-purple px-3 py-1 rounded-full text-sm"
+                      className="bg-trendspark-blue/10 text-trendspark-blue px-3 py-1 rounded-full text-sm"
                     >
                       {tag}
                     </div>
@@ -292,7 +292,7 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
                   <p className="text-sm text-muted-foreground">Mood: {content.musicRecommendation?.mood}</p>
                   <p className="text-sm text-muted-foreground">Platform: {content.musicRecommendation?.platform}</p>
                   {content.musicRecommendation?.trending && (
-                    <div className="bg-trendspark-purple/10 text-trendspark-purple px-2 py-1 rounded text-xs inline-block">
+                    <div className="bg-trendspark-blue/10 text-trendspark-blue px-2 py-1 rounded text-xs inline-block">
                       Trending
                     </div>
                   )}
@@ -312,7 +312,7 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
                     <h3 className="font-medium">Recommended Platforms</h3>
                     <div className="flex flex-wrap gap-2">
                       {content.postingStrategy?.platform.map((platform, i) => (
-                        <div key={i} className="bg-trendspark-purple/10 text-trendspark-purple px-2 py-1 rounded text-sm">
+                        <div key={i} className="bg-trendspark-blue/10 text-trendspark-blue px-2 py-1 rounded text-sm">
                           {platform}
                         </div>
                       ))}
@@ -340,7 +340,7 @@ const ContentResults = ({ content, genre, prompt }: ContentResultsProps) => {
         
         <CardFooter className="flex flex-wrap gap-2 justify-between">
           <div className="flex gap-2">
-            <Button variant="default" className="bg-trendspark-purple hover:bg-trendspark-purple/90" onClick={handleSave}>
+            <Button variant="default" className="bg-trendspark-blue hover:bg-trendspark-blue/90" onClick={handleSave}>
               <BookmarkPlus className="mr-2 h-4 w-4" />
               Save
             </Button>

@@ -69,7 +69,7 @@ const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
       <form onSubmit={handleSubmit}>
         <CardHeader>
           <CardTitle className="text-2xl flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-trendspark-purple" />
+            <Sparkles className="h-5 w-5 text-trendspark-blue" />
             Create Viral Content
           </CardTitle>
           <CardDescription>
@@ -158,7 +158,7 @@ const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
         <CardFooter>
           <Button 
             type="submit" 
-            className="w-full bg-trendspark-purple hover:bg-trendspark-purple/90"
+            className="w-full bg-trendspark-blue hover:bg-trendspark-blue/90"
             disabled={isLoading}
           >
             {isLoading ? (

@@ -30,7 +30,7 @@ const FeatureBanner = () => {
     <div className="w-full max-w-3xl mx-auto py-6">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold mb-2 flex items-center justify-center">
-          <Sparkles className="h-5 w-5 text-trendspark-purple mr-2" />
+          <Sparkles className="h-5 w-5 text-trendspark-blue mr-2" />
           Spark Your Social Media Success
         </h2>
         <p className="text-muted-foreground">

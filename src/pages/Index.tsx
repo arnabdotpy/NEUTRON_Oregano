@@ -1,12 +1,10 @@
 
 import { useState, useEffect } from "react";
-import { Genre, Platform, GeneratedContent } from "@/types";
+import { Genre, Platform, GeneratedContent, WordCount } from "@/types";
 import InputForm from "@/components/InputForm";
 import ContentResults from "@/components/ContentResults";
 import LoadingDisplay from "@/components/LoadingDisplay";
 import FeatureBanner from "@/components/FeatureBanner";
-import UsageLimitDisplay from "@/components/UsageLimitDisplay";
-import TrendingHashtags from "@/components/TrendingHashtags";
 import { generateContent, checkUsageLimit } from "@/services/api";
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
@@ -101,7 +99,6 @@ const Index = () => {
             <InputForm 
               onSubmit={handleGenerateContent} 
               isLoading={isLoading} 
-              disabled={!withinLimit}
             />
           )}
         </div>
@@ -109,7 +106,7 @@ const Index = () => {
       
       {isLoading && <LoadingDisplay />}
       
-      {!isLoading && content && (
+      {!isLoading && content && !showForm && (
         <ContentResults 
           content={content} 
           genre={lastGenre} 
@@ -126,7 +123,7 @@ const Index = () => {
             onClick={() => setShowForm(true)}
             className="text-sm font-semibold text-gray-500 flex items-center"
           >
-            Generate Again <Sparkles className="ml-2 h-4 w-4" />
+            Start New <Sparkles className="ml-2 h-4 w-4" />
           </button>
         </div>
       )

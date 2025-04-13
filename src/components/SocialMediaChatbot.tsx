@@ -8,12 +8,15 @@ import { Loader2, Send, MessageCircle, User, Bot } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { sendChatMessage } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
+import ReactMarkdown from "react-markdown";
 
 interface Message {
   id: string;
   content: string;
   sender: "user" | "assistant";
   timestamp: Date;
+  isStreaming?: boolean;
+  fullContent?: string;
 }
 
 const SocialMediaChatbot = () => {
@@ -36,6 +39,22 @@ const SocialMediaChatbot = () => {
 
   useEffect(scrollToBottom, [messages]);
 
+  const streamText = async (text: string, messageId: string) => {
+    let currentText = "";
+    for (let i = 0; i < text.length; i++) {
+      currentText += text[i];
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === messageId
+            ? { ...msg, content: currentText }
+            : msg
+        )
+      );
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+    return currentText;
+  };
+
   const handleSendMessage = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!inputMessage.trim() || isLoading) return;
@@ -55,14 +74,29 @@ const SocialMediaChatbot = () => {
       // Get response from API
       const response = await sendChatMessage(inputMessage);
       
-      // Add assistant message to chat
+      // Add assistant message to chat with streaming
+      const messageId = (Date.now() + 1).toString();
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: response,
+        id: messageId,
+        content: "",
+        fullContent: response,
         sender: "assistant",
         timestamp: new Date(),
+        isStreaming: true,
       };
       setMessages((prev) => [...prev, assistantMessage]);
+      
+      // Stream the response
+      await streamText(response, messageId);
+      
+      // Update message to mark streaming as complete
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === messageId
+            ? { ...msg, isStreaming: false }
+            : msg
+        )
+      );
     } catch (error) {
       console.error("Error sending message:", error);
       // Add error message
@@ -83,7 +117,6 @@ const SocialMediaChatbot = () => {
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8 bg-primary/10">
-            <AvatarImage src="/placeholder.svg" alt="Bot" />
             <AvatarFallback><Bot className="h-4 w-4" /></AvatarFallback>
           </Avatar>
           <div>
@@ -110,13 +143,17 @@ const SocialMediaChatbot = () => {
                   )}
                   <div>
                     <div
-                      className={`rounded-lg px-4 py-2 ${
+                      className={`rounded-lg px-4 py-2 prose prose-sm dark:prose-invert ${
                         message.sender === "user"
                           ? "bg-primary text-primary-foreground"
                           : "bg-muted"
                       }`}
                     >
-                      <p style={{ whiteSpace: "pre-wrap" }}>{message.content}</p>
+                      {message.sender === "user" ? (
+                        <p style={{ whiteSpace: "pre-wrap" }}>{message.content}</p>
+                      ) : (
+                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                      )}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
                       {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}

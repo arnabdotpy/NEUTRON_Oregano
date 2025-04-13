@@ -53,8 +53,8 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				trendspark: {
-					purple: '#9b87f5',
 					blue: '#33C3F0',
+					purple: '#33C3F0', // Keeping purple as an alias to blue for backward compatibility
 					pink: '#D946EF',
 					orange: '#F97316',
 					green: '#10B981',

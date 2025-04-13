@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 260 10% 10%;
 
-    --primary: 266 100% 50%;
+    --primary: 199 89% 57%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 260 10% 95%;
@@ -55,7 +55,7 @@
     --popover: 260 20% 8%;
     --popover-foreground: 260 10% 98%;
 
-    --primary: 266 80% 60%;
+    --primary: 199 89% 57%;
     --primary-foreground: 260 10% 98%;
 
     --secondary: 260 20% 15%;
@@ -102,7 +102,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 2px;
-    background: linear-gradient(to right, #9b87f5, #33C3F0, #D946EF);
+    background: linear-gradient(to right, #33C3F0, #33C3F0, #D946EF);
     -webkit-mask: 
       linear-gradient(#fff 0 0) content-box, 
       linear-gradient(#fff 0 0);

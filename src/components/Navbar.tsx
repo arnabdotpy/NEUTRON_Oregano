@@ -19,7 +19,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useAuth } from "@/context/AuthContext";
-import { Sparkles, Menu, ChevronDown, History, BarChart3, User, LogOut, MessageCircle, Instagram } from "lucide-react";
+import { Sparkles, Menu, ChevronDown, History, BarChart3, User, LogOut, MessageCircle, Instagram, MessageSquare } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import UsageLimitDisplay from "@/components/UsageLimitDisplay";
 
@@ -67,17 +67,17 @@ const Navbar = () => {
       icon: <MessageCircle className="h-4 w-4 mr-2" />,
       authRequired: true,
     },
-    {
-      name: "Instagram Insights",
-      path: "/instagram",
-      icon: <Instagram className="h-4 w-4 mr-2" />,
-      authRequired: true,
-    },
+    // {
+    //   name: "Instagram Insights",
+    //   path: "/instagram",
+    //   icon: <Instagram className="h-4 w-4 mr-2" />,
+    //   authRequired: true,
+    // },
     {
       name: "About",
       path: "/about",
       icon: null,
-      authRequired: false,
+      authRequired: true,
     },
   ];
 
@@ -164,6 +164,10 @@ const Navbar = () => {
                 <DropdownMenuItem onClick={() => navigate("/instagram")}>
                   <Instagram className="h-4 w-4 mr-2" />
                   <span>Instagram Insights</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/chat-generator")}>
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  <span>Chat Generator</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="m-1">

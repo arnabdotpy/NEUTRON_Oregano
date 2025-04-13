@@ -92,7 +92,7 @@ const Landing = () => {
             </h1>
             
             <p className="max-w-2xl text-muted-foreground text-lg md:text-xl font-light">
-              Let AI help you brainstorm viral scripts, hooks, and ideas—fast,
+              Let AI help you brainstorm viral scripts, hooks, and ideas fast,
               fun, and ready to share with the world.
             </p>
             

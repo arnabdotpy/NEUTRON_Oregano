@@ -34,8 +34,8 @@ const Auth = () => {
     <div className="container max-w-md py-12">
       <div className="flex justify-center mb-8">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-8 w-8 text-trendspark-purple" />
-          <span className="text-3xl font-bold bg-gradient-to-r from-trendspark-purple to-trendspark-blue bg-clip-text text-transparent">
+          <Sparkles className="h-8 w-8 text-trendspark-blue" />
+          <span className="text-3xl font-bold bg-gradient-to-r from-trendspark-blue to-trendspark-blue bg-clip-text text-transparent">
             TrendSpark
           </span>
         </div>
@@ -96,7 +96,7 @@ const Auth = () => {
             <CardFooter>
               <Button 
                 type="submit" 
-                className="w-full bg-trendspark-purple hover:bg-trendspark-purple/90"
+                className="w-full bg-trendspark-blue hover:bg-trendspark-blue/90"
                 disabled={isLoading}
               >
                 {isLoading ? (
